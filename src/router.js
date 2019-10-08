@@ -4,9 +4,12 @@ import Home from './views/Home.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router =  new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior() {
+    return { x: 0, y: 0 }
+  },
   routes: [
     {
       path: '/',
@@ -23,3 +26,13 @@ export default new Router({
     }
   ]
 })
+
+router.afterEach(() => {
+  // Remove initial loading
+  const appLoading = document.getElementById('loading-bg')
+  if (appLoading) {
+    appLoading.style.display = "none";
+  }
+})
+
+export default router;
